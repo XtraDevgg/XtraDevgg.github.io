@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        console.log("Hi hackers!!>3")
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xtradev@debian</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        :root {
+            --bg: #000000;
+            --text: #C0C0C0;
+            --highlight: #FFFFFF;
+            --accent: #FF5555;
+            --secondary: #AAAAAA;
+            --pink: #FF66AA;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        /* Панель управления */
+        .control-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .control-btn {
+            background: transparent;
+            color: var(--text);
+            border: none;
+            padding: 2px 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: var(--highlight);
+            color: var(--bg);
+        }
+
+        /* Область терминала */
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--bg);
+            padding: 5px;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px solid var(--secondary);
+        }
+
+        .prompt-path {
+            color: var(--highlight);
+            margin-right: 5px;
+        }
+
+        .prompt-symbol {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+
+        .command-input {
+            color: var(--highlight);
+            background: transparent;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            width: 80%;
+            outline: none;
+            flex-grow: 1;
+        }
+
+        /* Стили для вывода команд */
+        .cmd-output {
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .divider {
+            color: var(--accent);
+            margin: 8px 0;
+            letter-spacing: -1px;
+        }
+
+        .section-title {
+            color: var(--highlight);
+            margin-bottom: 5px;
+        }
+
+        .list-item {
+            margin-left: 15px;
+            margin-bottom: 3px;
+        }
+
+        .back-btn {
+            color: var(--accent);
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* Курсор */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--highlight);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Панель управления -->
+    <div class="control-panel">
+        <button class="control-btn">[HOME]</button>
+        <button class="control-btn">[WHOAMI]</button>
+        <button class="control-btn">[PROJECTS]</button>
+        <button class="control-btn">[HOBBIES]</button>
+        <button class="control-btn">[CONTACT]</button>
+        <button class="control-btn">[CLEAR]</button>
+    </div>
+
+    <!-- Область терминала -->
+    <div class="terminal-output" id="output">
+        <div class="cmd-output">
+*_*
+        </div>
+    </div>
+
+    <!-- Текущая командная строка -->
+    <div class="prompt-line">
+        <span class="prompt-path">~/bio</span>
+        <span class="prompt-symbol">$</span>
+        <input type="text" class="command-input" id="command-input" autofocus>
+        <span class="cursor"></span>
+    </div>
+
+    <script>
+        // Данные для команд
+        const commands = {
+            home: {
+                output: `welcome viewer@os !!`
+            },
+            whoami: {
+                output: `xtradev@debian
+-----------------------
+OS: Debinyan 12 
+KOWDING ON: Python, C, C++
+Nya: Nya~!
+Fandoms: Madness Combat, Urban Spook, Lucky Star
+Listening to: Black Metal, Hardstyle, Jumpstyle, Tanzelcore
+Compiler: G++, GCC
+
+[BACK TO HOME]`
+            },
+            projects: {
+                output: 
+`ACTIVE:
+    OWN ALBUM ON NOISECORE, GRINDCORE
+    TAKARA 2
+COMPLETED:
+    BIO`
+            },
+            hobbies: {
+                output: `
+GAMING, WATHING TO FEMBOYZ .*.`
+            },
+            contact: {
+                output: `
+Git: XtraDevGG
+Telegram: @Jlupu4eckoe_nouJlo`
+            },
+            clear: {
+                output: ''
+            },
+            help: {
+                output: `Available commands:
+HOME     - Return to welcome screen
+WHOAMI   - Show user info
+PROJECTS - My projects
+HOBBIES  - My hobbies
+CONTACT  - Contact information
+CLEAR    - Clear terminal`
+            }
+        };
+
+        // Инициализация терминала
+        document.addEventListener('DOMContentLoaded', () => {
+            const outputArea = document.getElementById('output');
+            const commandInput = document.getElementById('command-input');
+            const controlButtons = document.querySelectorAll('.control-btn');
+            
+            // Обработка ввода с клавиатуры
+            commandInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const cmd = commandInput.value.trim().toLowerCase();
+                    commandInput.value = '';
+                    
+                    // Добавляем строку команды в вывод
+                    addCommandLine(cmd);
+                    
+                    // Выполняем команду
+                    executeCommand(cmd);
+                }
+            });
+            
+            // Обработка кнопок
+            controlButtons.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    const commandsList = [
+                        'home', 'whoami', 'projects', 'hobbies', 
+                        'contact', 'clear'
+                    ];
+                    if (index < commandsList.length) {
+                        const cmd = commandsList[index];
+                        
+                        // Добавляем строку команды в вывод
+                        addCommandLine(cmd);
+                        
+                        // Выполняем команду
+                        executeCommand(cmd);
+                    }
+                    commandInput.focus();
+                });
+            });
+            
+            // Функция для добавления строки команды
+            function addCommandLine(cmd) {
+                const commandLine = document.createElement('div');
+                commandLine.className = 'command-line';
+                commandLine.innerHTML = `
+                    <span class="prompt-path">~/bio</span>
+                    <span class="prompt-symbol">$</span>
+                    <span>${cmd}</span>
+                `;
+                outputArea.appendChild(commandLine);
+            }
+            
+            // Функция выполнения команды
+            function executeCommand(cmd) {
+                if (!cmd) return;
+                
+                // Обработка специальных команд
+                if (cmd === 'clear') {
+                    outputArea.innerHTML = '';
+                    return;
+                }
+                
+                // Получаем команду
+                const command = commands[cmd] || commands['help'];
+                
+                // Выводим результат команды
+                if (command.output) {
+                    addToOutput(command.output);
+                }
+                
+                // Прокрутка вниз
+                outputArea.scrollTop = outputArea.scrollHeight;
+            }
+            
+            // Добавление текста в вывод
+            function addToOutput(text) {
+                const outputElement = document.createElement('div');
+                outputElement.className = 'cmd-output';
+                outputElement.textContent = text;
+                outputArea.appendChild(outputElement);
+            }
+            
+            // Начальное состояние
+            addToOutput('Type HELP for available commands');
+        });
+    </script>
+</body>
+</html>
