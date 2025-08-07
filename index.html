@@ -16,6 +16,11 @@
             font-weight: bold;
         }
 
+        .accent { color: var(--accent); }
+        .highlight { color: var(--highlight); }
+        .pink { color: var(--pink); }
+        .secondary { color: var(--secondary); }
+
         :root {
             --bg: #000000;
             --text: #C0C0C0;
@@ -157,6 +162,7 @@
         <button class="control-btn">[HOBBIES]</button>
         <button class="control-btn">[CONTACT]</button>
         <button class="control-btn">[CLEAR]</button>
+        <button class="control-btn">[NEOFETCH]</button>
     </div>
 
     <!-- Область терминала -->
@@ -164,6 +170,9 @@
         <div class="cmd-output">
 *_*
         </div>
+        <script>
+           
+        </script>
     </div>
 
     <!-- Текущая командная строка -->
@@ -177,8 +186,69 @@
     <script>
         // Данные для команд
         const commands = {
+            nya: {
+                arts: [  // Массив различных ASCII-артов
+
+            `
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠠⢤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡴⠒⠒⠒⠒⠒⠶⠦⠄⢹⣄⠀⠀⠑⠄⣀⡠⠤⠴⠒⠒⠒⠀⠀
+⢇⠀⠀⠀⠀⠀⠀⠐⠋⠀⠒⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀
+⠈⢆⠀⠀⠀⠀⡤⠤⣄⠀⠀⠀⠀⡤⠤⢄⠀⠀⠀⠀⠀⣠⠃⠀
+⠀⡀⠑⢄⡀⡜⠀⡜⠉⡆⠀⠀⠀⡎⠙⡄⠳⡀⢀⣀⣜⠁⠀⠀
+⠀⠹⣍⠑⠀⡇⠀⢣⣰⠁⠀⠀⠀⠱⣠⠃⠀⡇⠁⣠⠞⠀⠀⠀
+⠀⠀⠀⡇⠔⣦⠀⠀⠀⠈⣉⣀⡀⠀⠀⠰⠶⠖⠘⢧⠀⠀⠀⠀
+⠀⠀⠰⠤⠐⠤⣀⡀⠀⠈⠑⣄⡁⠀⡀⣀⠴⠒⠀⠒⠃⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠘⢯⡉⠁⠀⠀⠀⠀⠉⢆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢀⣞⡄⠀⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀
+            `,
+            `
+ ⢸⠂⠀⠀⠀⠘⣧⠀⠀⣟⠛⠲⢤⡀⠀⠀⣰⠏⠀⠀⠀⠀⠀⢹⡀
+⠀⡿⠀⠀⠀⠀⠀⠈⢷⡀⢻⡀⠀⠀⠙⢦⣰⠏⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⢀⣻⠞⠛⠀⠀⠀⠀⠻⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠛⠓⠒⠓⠓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀
+⠀⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⢀⡟⠀
+⠀⠘⣇⠀⠘⣿⠋⢹⠛⣿⡇⠀⠀⠀⠀⣿⣿⡇⠀⢳⠉⠀⣠⡾⠁⠀
+⣦⣤⣽⣆⢀⡇⠀⢸⡇⣾⡇⠀⠀⠀⠀⣿⣿⡷⠀⢸⡇⠐⠛⠛⣿⠀
+⠹⣦⠀⠀⠸⡇⠀⠸⣿⡿⠁⢀⡀⠀⠀⠿⠿⠃⠀⢸⠇⠀⢀⡾⠁⠀
+⠀⠈⡿⢠⢶⣡⡄⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⣴⣧⠆⠀⢻⡄⠀⠀
+⠀⢸⠃⠀⠘⠉⠀⠀⠀⠠⣄⡴⠲⠶⠴⠃⠀⠀⠀⠉⡀⠀⠀⢻⡄⠀
+⠀⠘⠒⠒⠻⢦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⠞⠛⠒⠛⠋⠁⠀
+⠀⠀⠀⠀⠀⠀⠸⣟⠓⠒⠂⠀⠀⠀⠀⠀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠙⣦⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣃⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⣹⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀
+            `,
+            `
+⠀⠀⡔⠉⠑⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⠋⠉⠉⠓⡆⠀⠀
+⠀⣸⠁⠀⠀⠀⠙⢦⡀⢸⡉⠓⠲⣄⡀⢀⡞⠀⠀⠀⠀⣀⣽⡤⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠙⣦⠷⠄⠀⠀⠙⠞⠀⠀⠀⠀⠀⠒⠚⡏⠁
+⠀⡇⠀⠀⠀⠀⣀⣀⡚⠓⠒⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀
+⠀⡇⠀⠀⠀⡎⠀⠀⠈⡆⠀⠀⠀⠀⠘⢄⣀⣀⡀⠀⠀⠀⣸⠁⠀
+⠀⠈⣇⠀⠐⡶⠖⣲⣶⡆⠀⠀⠀⠀⣶⣶⡒⠲⡒⠀⢀⡼⠁⠀⠀
+⠰⣖⠺⠧⢸⠁⠀⣿⣿⠇⠀⠀⠀⠀⣿⣿⠇⠀⡇⠀⠉⣩⠇⠀⠀
+⠀⠈⣳⠀⣨⢃⠀⠈⠉⠀⠒⠂⠀⠀⠈⠁⢀⠄⡡⠀⢼⡁⠀⠀⠀
+⠀⢰⣃⣈⣀⠁⠀⠀⠀⠦⠔⠓⠲⡲⠃⠀⠀⢈⣀⣀⣀⣹⡄⠀⠀
+⠀⠀⠀⠀⠀⠉⢳⠲⠤⢄⣀⣀⣀⣠⢶⠒⣏⠉⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠈⣳⠒⢲⠋⢱⠤⠧⠚⠋⠘⡆⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠘⠓⡆⠈⠒⠁⠀⠀⠀⠀⠀⢹⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣁⣀⣀⣀⣀⣀⣀⣀⣀⣀⡇⠀⠀⠀⠀⠀⠀
+            `
+        ],
+        get output() {  // Геттер для случайного арта
+            return this.arts[Math.floor(Math.random() * this.arts.length)];
+        },
+         isHTML: false
+    },
             home: {
-                output: `welcome viewer@os !!`
+                splash:[
+                `full gpt-codded btw <span class="accent">>.<</span>`,`smd ! ^^`, `try type 'nya'`, `<span class="accent">morfin</span> is cool`, `<span class="accent">0%</span> boykisser <span class="accent">60%</span> metalhead <span class="accent">40%</span> x359x`,`IZU<span class="accent">M</span>ITE<span class="highlight">LNAA=3</span>`,`TOMA LOX`,`NVIM <span class="hightlight">v0.11.3</span>`, `BLOWOUT!!!!!111!`, `VASHE <span class="accent">POHUU</span>`
+                ],
+                get output() {  // Геттер для случайного арта
+                    return this.splash[Math.floor(Math.random() * this.splash.length)];
+                },
+                isHTML: true
             },
             whoami: {
                 output: `xtradev@debian
@@ -189,8 +259,8 @@ Nya: Nya~!
 Fandoms: Madness Combat, Urban Spook, Lucky Star
 Listening to: Black Metal, Hardstyle, Jumpstyle, Tanzelcore
 Compiler: G++, GCC
-
-[BACK TO HOME]`
+`,
+                isHTML: false
             },
             projects: {
                 output: 
@@ -198,19 +268,23 @@ Compiler: G++, GCC
     OWN ALBUM ON NOISECORE, GRINDCORE
     TAKARA 2
 COMPLETED:
-    BIO`
+    BIO`,
+                isHTML: false
             },
             hobbies: {
                 output: `
-GAMING, WATHING TO FEMBOYZ .*.`
+GAMING, WATHING TO FEMBOYZ .*.`,
+                isHTML: false
             },
             contact: {
                 output: `
 Git: XtraDevGG
-Telegram: @Jlupu4eckoe_nouJlo`
+Telegram: @Jlupu4eckoe_nouJlo`,
+                isHTML: false
             },
             clear: {
-                output: ''
+                output: '',
+                isHTML: false
             },
             help: {
                 output: `Available commands:
@@ -219,8 +293,29 @@ WHOAMI   - Show user info
 PROJECTS - My projects
 HOBBIES  - My hobbies
 CONTACT  - Contact information
-CLEAR    - Clear terminal`
-            }
+CLEAR    - Clear terminal`,
+                isHTML: false
+            },
+            neofetch:{
+                output:`
+OWOS: Debinyan 12 (BOOKWORM)
+KEWNEL: LIUWUX 6.1
+CUWUNT NAME: XTRADEV
+SHEWW    /bin/bash
+GPUWU    NyaVIDIA COwOpowation GK106 GeFOwOce GTX 660
+CPUWU    12th Gen Inteww(R) Cowe(TM) i3-12100F
+MEMUWU: 16GB
+                `,
+                isHTML: false
+            },
+            morfin:{
+                output:`
+СУКА МОРФИН Я ЕБ4Ц4 ХОЧУ ДАЙ МНЕ УЖЕ
+БЛЯАЛПЫВАЗПЩДУЦФЗЩПЗУК
+                `,
+                isHTML: false
+            },
+            
         };
 
         // Инициализация терминала
@@ -248,7 +343,7 @@ CLEAR    - Clear terminal`
                 btn.addEventListener('click', () => {
                     const commandsList = [
                         'home', 'whoami', 'projects', 'hobbies', 
-                        'contact', 'clear'
+                        'contact', 'clear','neofetch'
                     ];
                     if (index < commandsList.length) {
                         const cmd = commandsList[index];
@@ -264,50 +359,60 @@ CLEAR    - Clear terminal`
             });
             
             // Функция для добавления строки команды
-            function addCommandLine(cmd) {
-                const commandLine = document.createElement('div');
-                commandLine.className = 'command-line';
-                commandLine.innerHTML = `
-                    <span class="prompt-path">~/bio</span>
-                    <span class="prompt-symbol">$</span>
-                    <span>${cmd}</span>
-                `;
-                outputArea.appendChild(commandLine);
-            }
-            
-            // Функция выполнения команды
-            function executeCommand(cmd) {
-                if (!cmd) return;
-                
-                // Обработка специальных команд
-                if (cmd === 'clear') {
-                    outputArea.innerHTML = '';
-                    return;
-                }
-                
-                // Получаем команду
-                const command = commands[cmd] || commands['help'];
-                
-                // Выводим результат команды
-                if (command.output) {
-                    addToOutput(command.output);
-                }
-                
-                // Прокрутка вниз
-                outputArea.scrollTop = outputArea.scrollHeight;
-            }
-            
-            // Добавление текста в вывод
-            function addToOutput(text) {
-                const outputElement = document.createElement('div');
-                outputElement.className = 'cmd-output';
-                outputElement.textContent = text;
-                outputArea.appendChild(outputElement);
-            }
+            // Добавление команды в историю (с цветным оформлением)
+function addCommandLine(cmd) {
+    const commandLine = document.createElement('div');
+    commandLine.className = 'command-line';
+    commandLine.innerHTML = `
+        <span class="prompt-path">~/bio</span>
+        <span class="prompt-symbol">$</span>
+        <span class="highlight">${cmd}</span> <!-- Добавлен класс -->
+    `;
+    outputArea.appendChild(commandLine);
+}
+
+// Функция выполнения команды
+function executeCommand(cmd) {
+    if (!cmd) return;
+
+    if (cmd === 'clear') {
+        outputArea.innerHTML = '';
+        return;
+    }
+
+    const command = commands[cmd] || commands['help'];
+    
+    if (command.output) {
+        const result = typeof command.output === 'function' 
+                     ? command.output() 
+                     : command.output;
+                     
+        // Определяем тип вывода (HTML/текст)
+        addToOutput(result, command.isHTML);
+    }
+    
+    outputArea.scrollTop = outputArea.scrollHeight;
+}
+
+// Обновленная функция вывода (поддержка HTML)
+function addToOutput(content, isHTML = false) {
+    const outputElement = document.createElement('div');
+    outputElement.className = 'cmd-output';
+    
+    if (isHTML) {
+        outputElement.innerHTML = content;
+    } else {
+        outputElement.textContent = content;
+    }
+    
+    outputArea.appendChild(outputElement);
+}
             
             // Начальное состояние
-            addToOutput('Type HELP for available commands');
+            executeCommand("home");
         });
+
+        
     </script>
 </body>
 </html>
